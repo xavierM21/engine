@@ -14,7 +14,7 @@ namespace engine.Factories
 
             newWorld.Addlocation(-2, -1, "Ivan's Field", "This is ivan's field he likes sunflowers!", "pack://application:,,,/Engine;component/Images/Locations/Field.png");
             newWorld.Addlocation(-1, -1, "Ivan's Home", "This is your friend's house.", "pack://application:,,,/Engine;component/Images/Locations/Framhouse.png" );
-            newWorld.Addlocation(0, -1, "home", "this is your casa homie", "pack://application:,,,/Engine;component/Images/Locations/home.png");
+            newWorld.Addlocation(0, -1, "home", "This is your home", "pack://application:,,,/Engine;component/Images/Locations/home.png");
             newWorld.Addlocation(-1, 0, "Trader", "This is a freindly trader, say hi!", "pack://application:,,,/Engine;component/Images/Locations/Trader.png");
             newWorld.Addlocation(0, 0, "Main town", "Welcome to LONDON!", "pack://application:,,,/Engine;component/Images/Locations/mainTown.png");
             newWorld.Addlocation(1, 0, "Town Gate", "used to proect from unwated guests, im nervous", "pack://application:,,,/Engine;component/Images/Locations/TownGate.png");
