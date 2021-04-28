@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using engine.Models;
+using engine.Factories;
 namespace engine.ViewModels
 {
     public class GameSession
     {
+        public World CurrentWorld { get; set; }
         public player CurrentPlayer { get; set; }
         public Location CurrentLocation { get; set; }
         
@@ -19,12 +21,10 @@ namespace engine.ViewModels
             CurrentPlayer.Lvl = 1;
             CurrentPlayer.XP = 0;
 
-            CurrentLocation = new Location();
-            CurrentLocation.Name = "Home";
-            CurrentLocation.XCoord = 0;
-            CurrentLocation.YCoord = -1;
-            CurrentLocation.Description = "this is your casa homie";
+            WorldFactory factory = new WorldFactory();
+            CurrentWorld = factory.CreateWorld();
 
+            CurrentLocation = CurrentWorld.LocationAt(0, -1);
 
         }
     }

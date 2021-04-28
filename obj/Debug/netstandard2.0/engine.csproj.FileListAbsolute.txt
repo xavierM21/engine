@@ -7,3 +7,4 @@ C:\Users\xmora\source\repos\engine\obj\Debug\netstandard2.0\engine.csproj.CoreCo
 C:\Users\xmora\source\repos\engine\obj\Debug\netstandard2.0\engine.dll
 C:\Users\xmora\source\repos\engine\obj\Debug\netstandard2.0\engine.pdb
 C:\Users\xmora\source\repos\engine\obj\Debug\netstandard2.0\engine.csprojAssemblyReference.cache
+C:\Users\xmora\source\repos\engine\obj\Debug\netstandard2.0\engine.g.resources

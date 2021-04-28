@@ -12,5 +12,9 @@ namespace engine.Models
         public string Description { get; set; }
         public string ImageName { get; set; }
 
+        internal Location LocationAt(int v1, int v2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

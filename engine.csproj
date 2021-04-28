@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -7,7 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
+    <None Remove="Images\Locations\Farmhouse.png" />
+    <None Remove="Images\Locations\Field.png" />
+    <None Remove="Images\Locations\ForestMonster.png" />
+    <None Remove="Images\Locations\home.png" />
+    <None Remove="Images\Locations\mainTown.png" />
+    <None Remove="Images\Locations\Mudhut.png" />
+    <None Remove="Images\Locations\mudhutGarden.png" />
+    <None Remove="Images\Locations\TownGate.png" />
+    <None Remove="Images\Locations\Trader.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Locations\Farmhouse.png" />
+    <Resource Include="Images\Locations\Field.png" />
+    <Resource Include="Images\Locations\ForestMonster.png" />
+    <Resource Include="Images\Locations\home.png" />
+    <Resource Include="Images\Locations\mainTown.png" />
+    <Resource Include="Images\Locations\Mudhut.png" />
+    <Resource Include="Images\Locations\mudhutGarden.png" />
+    <Resource Include="Images\Locations\TownGate.png" />
+    <Resource Include="Images\Locations\Trader.png" />
   </ItemGroup>
 
 </Project>
