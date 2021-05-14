@@ -5,7 +5,7 @@ using System.Text;
 
 namespace engine.Models
 {
-    public class player : INotifyPropertyChanged  // public is there to make this class and vars visiable to the entire program.
+    public class player : basenotification  // public is there to make this class and vars visiable to the entire program.
         //INotifyProertyChanged makes sure that the program listens to these variables so when they chagned they are updated to the main window
     {
         // get and set means that you can get the value and set the value of the string and int
@@ -22,7 +22,7 @@ namespace engine.Models
             set
             {
                 _Name = value;
-                OnPropertyChanged("Name");
+                onPropertyChanged(nameof(Name));
             }
         }
         public string CharClass 
@@ -31,7 +31,7 @@ namespace engine.Models
             set
             {
                 _CharClass = value;
-                OnPropertyChanged("CharClass");
+                onPropertyChanged(nameof(CharClass));
             } 
         }
         public int HP 
@@ -40,7 +40,7 @@ namespace engine.Models
             set
             {
                 _HP = value;
-                OnPropertyChanged("HP");
+                onPropertyChanged(nameof(HP));
             }
         }
         public int XP 
@@ -49,7 +49,7 @@ namespace engine.Models
             set 
             {
                 _XP = value;
-                OnPropertyChanged("XP");
+                onPropertyChanged(nameof(XP));
             }
         }
         public int Lvl 
@@ -58,7 +58,7 @@ namespace engine.Models
             set
             {
                 _Lvl = value;
-                OnPropertyChanged("Lvl");
+                onPropertyChanged(nameof(Lvl));
             }
         }
         public int Gold 
@@ -67,17 +67,11 @@ namespace engine.Models
             set
             {
                 _Gold = value;
-                OnPropertyChanged("Gold");
+                onPropertyChanged(nameof(Gold));
             }
         }
 
         // vvv required for Inotify vvv
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
     }
 }
