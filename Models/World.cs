@@ -10,8 +10,9 @@ namespace engine.Models
     {
         private List<Location> _locations = new List<Location>(); // made an empty list and will be loaded through worldFacotry
 
-        public void Addlocation(int xCoord, int yCoord, string name, string description, string imageName) // voided because we do not need to return anything
+        public void Addlocation(int xCoord, int yCoord, string name, string description, string imageName) // voided because we do not need to return anything since this is just for storing info. Will pull stuff from WorldFactory.cs
         {
+            
             Location loc = new Location();
             loc.XCoord = xCoord;
             loc.YCoord = yCoord;
