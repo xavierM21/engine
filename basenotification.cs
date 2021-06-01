@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace engine
 {
-    public class basenotification
+    public class basenotification : INotifyPropertyChanged // added so this actually works | edited, fixed 5/31
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -16,3 +16,8 @@ namespace engine
 
     }
 }
+
+
+// basenotification.cs
+// vvvvProperty changed & onProperyChanged() vvvv
+// can be used in: player.cs | gamesession.cs

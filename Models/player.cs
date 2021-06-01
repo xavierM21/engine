@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace engine.Models
 {
@@ -71,7 +73,18 @@ namespace engine.Models
             }
         }
 
+        public ObservableCollection<GameItem> Inventory { get; set; }
+        public ObservableCollection<QuestStatus> Quests { get; set; }
+
+        public player()
+        {
+            Inventory = new ObservableCollection<GameItem>();
+            Quests = new ObservableCollection<QuestStatus>();
+        }
+
         // vvv required for Inotify vvv
+
+        // removed for simplicity so code doesnt get repeated and clunky/ugly. moved to basenotification.cs
 
     }
 }

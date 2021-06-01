@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Linq;
 using engine.Models;
 using engine.Factories;
 
@@ -27,6 +28,8 @@ namespace engine.ViewModels
                 onPropertyChanged(nameof(HaslocationToEast));
                 onPropertyChanged(nameof(HaslocationToSouth));
                 onPropertyChanged(nameof(HaslocationToWest));
+
+                GivePlayerQuestsAtLocation();
             }
         }
 
@@ -65,39 +68,68 @@ namespace engine.ViewModels
 
         public GameSession()
         {
-            CurrentPlayer = new player(); // creates a new player object and put that on line 10(playre CurrentPlayer { get; set; }
-            CurrentPlayer.Name = "xav";
-            CurrentPlayer.Gold = 1000000;
-            CurrentPlayer.HP = 10;
-            CurrentPlayer.CharClass = "fighter";
-            CurrentPlayer.Lvl = 1;
-            CurrentPlayer.XP = 0;
+            CurrentPlayer = new player 
+                {
+                    Name = "xav", 
+                    CharClass = "night", 
+                    Gold = 10000, 
+                    HP = 10, 
+                    Lvl = 1, 
+                    XP = 0
+                }; 
+            // creates a new player object and put that on line 10(playre CurrentPlayer { get; set; }
+            // removed unnessacary code, looks cleaner right? :D
     
 
-            WorldFactory factory = new WorldFactory();
-            CurrentWorld = factory.CreateWorld();
+            CurrentWorld = WorldFactory.CreateWorld();
 
             CurrentLocation = CurrentWorld.LocationAt(0, -1);
+            CurrentPlayer.Inventory.Add(ItemFactory.CreateGameItem(1001));
+            CurrentPlayer.Inventory.Add(ItemFactory.CreateGameItem(1002));
+            CurrentPlayer.Inventory.Add(ItemFactory.CreateGameItem(1002));
         }
 
         public void MoveNorth()
         {
-            CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoord, CurrentLocation.YCoord + 1);
+            if(HaslocationToNorth)
+            {
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoord, CurrentLocation.YCoord + 1);
+            }
         }
 
         public void MoveWest()
         {
-            CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoord - 1, CurrentLocation.YCoord);
+            if(HaslocationToWest)
+            {
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoord - 1, CurrentLocation.YCoord);
+            }
         }
 
         public void MoveEast()
         {
-            CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoord + 1 , CurrentLocation.YCoord);
+            if (HaslocationToEast)
+            {
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoord + 1, CurrentLocation.YCoord);
+            }
         }
 
-        public void MoveSouth()
+        public void MoveSouth()  
         {
-            CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoord, CurrentLocation.YCoord -1);
+            if(HaslocationToSouth)
+            {
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoord, CurrentLocation.YCoord - 1);
+            }
+        }
+        //removed, explanation at player.cs | check basenotification
+        private void GivePlayerQuestsAtLocation()
+        {
+            foreach(Quest quest in CurrentLocation.QuestsAvailableHere)
+            {
+                if(!CurrentPlayer.Quests.Any(q => q.PlayerQuest.ID == quest.ID))
+                {
+                    CurrentPlayer.Quests.Add(new QuestStatus(quest));
+                }
+            }
         }
     }
 }
