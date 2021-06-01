@@ -8,18 +8,19 @@ using System.Collections.ObjectModel;
 namespace engine.Models
 {
     public class player : basenotification  // public is there to make this class and vars visiable to the entire program.
-        //INotifyProertyChanged makes sure that the program listens to these variables so when they chagned they are updated to the main window
+                                            //INotifyProertyChanged makes sure that the program listens to these variables so when they chagned they are updated to the main window
     {
         // get and set means that you can get the value and set the value of the string and int
 
         private string _Name;
         private string _CharClass;
-        private int _HP; 
+        private int _HP;
         private int _XP;
         private int _Lvl;
         private int _Gold;
-        public string Name 
-        { 
+
+        public string Name
+        {
             get { return _Name; }
             set
             {
@@ -27,16 +28,16 @@ namespace engine.Models
                 onPropertyChanged(nameof(Name));
             }
         }
-        public string CharClass 
+        public string CharClass
         {
             get { return _CharClass; }
             set
             {
                 _CharClass = value;
                 onPropertyChanged(nameof(CharClass));
-            } 
+            }
         }
-        public int HP 
+        public int HP
         {
             get { return _HP; }
             set
@@ -45,16 +46,16 @@ namespace engine.Models
                 onPropertyChanged(nameof(HP));
             }
         }
-        public int XP 
+        public int XP
         {
             get { return _XP; }
-            set 
+            set
             {
                 _XP = value;
                 onPropertyChanged(nameof(XP));
             }
         }
-        public int Lvl 
+        public int Lvl
         {
             get { return _Lvl; }
             set
@@ -63,7 +64,7 @@ namespace engine.Models
                 onPropertyChanged(nameof(Lvl));
             }
         }
-        public int Gold 
+        public int Gold
         {
             get { return _Gold; }
             set

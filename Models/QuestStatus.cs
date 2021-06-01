@@ -4,7 +4,7 @@ using System.Text;
 
 namespace engine.Models
 {
-    class QuestStatus
+    public class QuestStatus
     {
         public Quest PlayerQuest { get; set; }
         public bool IsCompleted { get; set; }
