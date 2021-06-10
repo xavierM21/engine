@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using engine.Models;
 using engine.Factories;
+using engine.EventArgs;
 
 
 namespace engine.ViewModels
@@ -13,6 +14,7 @@ namespace engine.ViewModels
 {
     public class GameSession : basenotification
     {
+        public event EventHandler<GameMessageEventArgs> OnMessageRaised;
         private Location _currentLocation;
         private Monsters _currentMonster;
         public World CurrentWorld { get; set; } 
@@ -43,8 +45,14 @@ namespace engine.ViewModels
                 _currentMonster = value;
                 onPropertyChanged(nameof(CurrentMonster));
                 onPropertyChanged(nameof(HasMonster));
+                if(CurrentMonster != null)
+                {
+                    RaiseMesssage("");
+                    RaiseMesssage($"you see a {CurrentMonster.Name}here !");
+                }
             }
         }
+        public Weapon CurrentWeapon { get; set; }
 
         public bool HaslocationToNorth
         {
@@ -90,17 +98,17 @@ namespace engine.ViewModels
                     HP = 10, 
                     Lvl = 1, 
                     XP = 0
-                }; 
+                };
             // creates a new player object and put that on line 10(playre CurrentPlayer { get; set; }
             // removed unnessacary code, looks cleaner right? :D
-    
+            if (!CurrentPlayer.Weapons.Any())
+            {
+                CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
+            }
 
             CurrentWorld = WorldFactory.CreateWorld();
 
             CurrentLocation = CurrentWorld.LocationAt(0, -1);
-            CurrentPlayer.Inventory.Add(ItemFactory.CreateGameItem(1001));
-            CurrentPlayer.Inventory.Add(ItemFactory.CreateGameItem(1002));
-            CurrentPlayer.Inventory.Add(ItemFactory.CreateGameItem(1002));
         }
 
         public void MoveNorth()
@@ -150,5 +158,71 @@ namespace engine.ViewModels
         {
             CurrentMonster = CurrentLocation.GetMonster();
         }
+
+        private void RaiseMesssage(string message)
+        {
+            OnMessageRaised?.Invoke(this, new GameMessageEventArgs(message));
+        }
+        public void AttackCurrentMonster()
+        {
+            if(CurrentWeapon == null)
+            {
+                RaiseMesssage("you must select a weapon");
+                return;
+            }
+            int dmgToMonster = RNG.SimpleNumberBetween(CurrentWeapon.MinDmg, CurrentWeapon.MaxDmg);
+            if (dmgToMonster == 0)
+            {
+                RaiseMesssage($"you hit the {CurrentMonster.Name} for {dmgToMonster} !");
+            }
+            else
+            {
+                CurrentMonster.HP -= dmgToMonster;
+                RaiseMesssage($"you hit the {CurrentMonster.Name} for {dmgToMonster} !");
+            }
+
+            if(CurrentMonster.HP <= 0)
+            {
+                RaiseMesssage("");
+                RaiseMesssage($"you defeated {CurrentMonster.Name}!");
+
+                CurrentPlayer.XP += CurrentMonster.RewardXP;
+                RaiseMesssage($"you gained {CurrentMonster.RewardXP} XP!");
+
+                CurrentPlayer.Gold += CurrentMonster.RewardGold;
+                RaiseMesssage($"you gained {CurrentMonster.RewardGold} gold!");
+
+                foreach(ItemQuantity itemQuantity in CurrentMonster.Inventory)
+                {
+                    GameItem item = ItemFactory.CreateGameItem(itemQuantity.ItemID);
+                    CurrentPlayer.AddItemToInventory(item);
+                    RaiseMesssage($"you gained {itemQuantity.Quantity} {item.Name}");
+                }
+                GetMonsterAtLocation();
+            }
+            else
+            {
+                int dmgToPlayer = RNG.SimpleNumberBetween(CurrentMonster.MinDmg, CurrentMonster.MaxDmg);
+
+                if(dmgToPlayer == 0 )
+                {
+                    RaiseMesssage("The monster attacts, you take no damage.");
+                }
+                else
+                {
+                    CurrentPlayer.HP -= dmgToPlayer;
+                    RaiseMesssage($"the {CurrentMonster.Name} hit you for {dmgToPlayer}!");
+                }
+                if (CurrentPlayer.HP  <= 0)
+                {
+                    RaiseMesssage("");
+                    RaiseMesssage($"the {CurrentMonster.Name} killed you");
+
+                    CurrentLocation = CurrentWorld.LocationAt(0, -1);
+                    CurrentPlayer.HP = CurrentPlayer.Lvl * 10;
+                }
+            }
+        }
+
     }
 }

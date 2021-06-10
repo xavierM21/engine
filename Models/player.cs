@@ -11,7 +11,7 @@ namespace engine.Models
                                             //INotifyProertyChanged makes sure that the program listens to these variables so when they chagned they are updated to the main window
     {
         // get and set means that you can get the value and set the value of the string and int
-
+        #region Properties
         private string _Name;
         private string _CharClass;
         private int _HP;
@@ -75,12 +75,20 @@ namespace engine.Models
         }
 
         public ObservableCollection<GameItem> Inventory { get; set; }
-        public ObservableCollection<QuestStatus> Quests { get; set; }
 
+        public List<GameItem> Weapons => Inventory.Where(i => i is Weapon).ToList();
+        public ObservableCollection<QuestStatus> Quests { get; set; }
+        #endregion
         public player()
         {
             Inventory = new ObservableCollection<GameItem>();
             Quests = new ObservableCollection<QuestStatus>();
+        }
+
+        public void AddItemToInventory(GameItem item)
+        {
+            Inventory.Add(item);
+            onPropertyChanged(nameof(Weapons));
         }
 
         // vvv required for Inotify vvv

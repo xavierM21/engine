@@ -15,24 +15,27 @@ namespace engine.Models
         public int HP
         {
             get { return _HP; }
-            private set
+            set
             {
                 _HP = value;
                 onPropertyChanged(nameof(HP));
             }
         }
-
+        public int MinDmg { get; set; }
+        public int MaxDmg { get; set; }
         public int RewardXP { get; private set; }
         public int RewardGold { get; private set; }
 
         public ObservableCollection<ItemQuantity> Inventory { get; set; }
 
-        public Monsters(string name, string imageName, int maxHP, int hP, int rewardXP, int rewardGold)
+        public Monsters(string name, string imageName, int maxHP, int hP, int minDmg, int maxDmg, int rewardXP, int rewardGold)
         {
             Name = name;
             ImageName = string.Format("pack://application:,,,/Engine;component/Images/Monsters/{0}", imageName);
             MaximumHP = maxHP;
             HP = hP;
+            MinDmg = minDmg;
+            MaxDmg = maxDmg;
             RewardXP = rewardXP;
             RewardGold = rewardGold;
 
